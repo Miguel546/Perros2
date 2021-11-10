@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="itemOrigen"
+            type="com.android.perros.beans.Perro" />
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="clickListener"
+            type="com.android.perros.adapter.ItemSelectedListener" />
+        <variable
+            name="clickPosicion"
+            type="com.android.perros.adapter.PosicionSelectedListener" />
+
+        <variable
+            name="viewModel"
+            type="com.android.perros.MainActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameProfessions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> clickPosicion.onClickPosicion(position, itemOrigen)}"
+            android:text="@{itemOrigen.description}"
+            tools:text="Chihuaua" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#0F000000"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:visibilityView="@{viewModel.view}"
+            app:layout_constraintTop_toBottomOf="@+id/nameProfessions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+
+            android:id="@+id/explicar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            app:visibilityExplicar="@{viewModel.explicar}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            android:text="Explicanos mas la raza de tu perro" />
+
+        <RelativeLayout
+
+            android:id="@+id/rlReason"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/ic_detalle_origen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explicar"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:visibilityRlReason="@{viewModel.rlReason}">
+            <EditText
+                android:id="@+id/reasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:maxLength="60"
+                android:backgroundTint="@color/transparent_total"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:visibilityReasons="@{viewModel.reasons}"
+                />
+        </RelativeLayout>
+
+        <TextView
+
+            android:id="@+id/contador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@+id/rlReason"
+            app:layout_constraintTop_toBottomOf="@+id/rlReason"
+            android:text="0/60"
+            android:paddingStart="32dp"
+
+            android:textSize="14sp"
+            app:visibilityContador="@{viewModel.contador}"/>
+
+        <ImageView
+
+            android:id="@+id/enviar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:tag="disabled"
+            android:src="@drawable/ic_rectangle_667"
+            android:onClick="@{() -> clickListener.onClick(itemOrigen)}"
+            app:visibilityEnviar="@{viewModel.enviar}"
+            app:layout_constraintStart_toEndOf="@+id/rlReason"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            ></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
